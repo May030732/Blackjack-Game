@@ -1,0 +1,16 @@
+# SQLite database
+*.db
+*.db-shm
+*.db-wal
+
+# Maven build files
+target/
+
+# VS Code local settings
+.vscode/
+
+# Java compiled files
+*.class
+
+# Environment variables
+.env

@@ -1,5 +1,3 @@
-package blackjack.model;
-
 public enum Suit {
     HEARTS,     // 紅心
     DIAMONDS,   // 方塊

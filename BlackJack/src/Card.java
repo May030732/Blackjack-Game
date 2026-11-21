@@ -1,12 +1,12 @@
-// 這是 "未完成的實作" !
-// 做基礎類別的人要把它補完!
-
 public class Card {
 
     private final Suit suit;
     private final Rank rank;
 
     public Card(Suit suit, Rank rank) {
+        if (suit == null || rank == null) {
+            throw new IllegalArgumentException("Suit and Rank cannot be null.");
+        }
         this.suit = suit;
         this.rank = rank;
     }

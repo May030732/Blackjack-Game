@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Blackjack - 遊戲歷史紀錄</title>
+
+    <!-- 載入 CSS 樣式 -->
+    <link rel="stylesheet" href="history.css">
+</head>
+
+<body>
+
+    <main>
+
+        <!-- =====================================
+             區域 1：網頁標題
+        ====================================== -->
+        <header>
+            <h1>Blackjack 遊戲歷史紀錄</h1>
+            <p>查看玩家過去的遊戲結果</p>
+        </header>
+
+        <!-- =====================================
+             區域 2：搜尋玩家
+        ====================================== -->
+        <section class="search-section">
+
+            <label for="playerName">
+                玩家姓名：
+            </label>
+
+            <!-- 輸入玩家姓名 -->
+            <input
+                type="text"
+                id="playerName"
+                placeholder="請輸入玩家姓名"
+                autocomplete="off"
+            >
+
+            <!-- 搜尋指定玩家 -->
+            <button
+                type="button"
+                id="searchButton">
+                搜尋
+            </button>
+
+            <!-- 顯示全部歷史紀錄 -->
+            <button
+                type="button"
+                id="allButton">
+                顯示全部
+            </button>
+
+        </section>
+
+        <!-- =====================================
+             區域 3：歷史紀錄表格
+        ====================================== -->
+        <section class="history-section">
+
+            <h2>歷史紀錄</h2>
+
+            <div class="table-container">
+
+                <table>
+
+                    <!-- 表格標題 -->
+                    <thead>
+                        <tr>
+                            <th>紀錄 ID</th>
+                            <th>玩家 UID</th>
+                            <th>下注金額</th>
+                            <th>玩家點數</th>
+                            <th>莊家點數</th>
+                            <th>遊戲結果</th>
+                            <th>籌碼變化</th>
+                            <th>遊戲時間</th>
+                        </tr>
+                    </thead>
+
+                    <!-- =================================
+                         JavaScript 動態產生資料
+                    ================================== -->
+                    <tbody id="historyTableBody">
+
+                        <tr>
+                            <td colspan="8">
+                                正在載入歷史紀錄...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================
+         載入 JavaScript
+         負責呼叫 Spring Boot API
+    ====================================== -->
+    <script src="history.js"></script>
+
+</body>
+
+</html>

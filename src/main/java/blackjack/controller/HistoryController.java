@@ -22,15 +22,19 @@ public class HistoryController {
         this.historyRepository = historyRepository;
     }
 
-    // 查詢全部歷史紀錄
+    // ==========================================
+    // 功能 1：查詢全部歷史紀錄
     // GET http://localhost:8080/api/history
+    // ==========================================
     @GetMapping
     public List<GameRecord> getAllHistory() {
         return historyRepository.findAll();
     }
 
-    // 查詢指定編號的歷史紀錄
+    // ==========================================
+    // 功能 2：依照紀錄 ID 查詢
     // GET http://localhost:8080/api/history/1
+    // ==========================================
     @GetMapping("/{id}")
     public ResponseEntity<GameRecord> getHistoryById(
             @PathVariable int id) {
@@ -43,5 +47,50 @@ public class HistoryController {
 
         return ResponseEntity.ok(record);
     }
-}
 
+    // ==========================================
+    // 功能 3：依照玩家姓名查詢
+    // GET /api/history/search?name=Amy
+    // ==========================================
+    @GetMapping("/search")
+    public List<GameRecord> searchHistoryByName(
+            @RequestParam String name) {
+
+        return historyRepository.findByPlayerName(name);
+    }
+
+    // ==========================================
+    // 功能 4：依照玩家 UID 查詢
+    // GET /api/history/player/1
+    // ==========================================
+    @GetMapping("/player/{uid}")
+    public List<GameRecord> searchHistoryByUid(
+            @PathVariable int uid) {
+
+        return historyRepository.findByUid(uid);
+    }
+
+    // ==========================================
+    // 功能 5：新增遊戲歷史紀錄
+    // POST http://localhost:8080/api/history
+    // ==========================================
+    @PostMapping
+    public ResponseEntity<String> createHistory(
+            @RequestBody GameRecord record) {
+
+        // 將收到的遊戲紀錄交給 Repository
+        int rows = historyRepository.save(record);
+
+        // 成功新增一筆資料
+        if (rows == 1) {
+            return ResponseEntity
+                    .status(201)
+                    .body("History saved successfully!");
+        }
+
+        // 新增失敗
+        return ResponseEntity
+                .internalServerError()
+                .body("History save failed!");
+    }
+}

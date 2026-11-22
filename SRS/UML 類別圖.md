@@ -222,8 +222,46 @@
 | PUSH                 |
 +----------------------+
 ```
-
 這裡先採用三種結果，Blackjack 屬於特殊的玩家勝利，另外透過 `Hand.isBlackjack()` 判斷是否適用 3:2 賠付。
+
+### PlayerAccount
+
+```
+
++----------------------------------------------+
+|                PlayerAccount                 |
++----------------------------------------------+
+| - uid: int                                   |
+| - playerName: String                         |
++----------------------------------------------+
+| + PlayerAccount(uid: int,                    |
+|                 playerName: String)          |
+| + getUid(): int                              |
+| + getPlayerName(): String                    |
++----------------------------------------------+
+
+```
+
+### GameRecord
+
+```
++------------------------------------------------+
+|                   GameRecord                   |
++------------------------------------------------+
+| - id: int                                      |
+| - uid: int                                     |
+| - betAmount: int                               |
+| - result: String                               |
++------------------------------------------------+
+| + GameRecord(id: int, uid: int,                 |
+|              betAmount: int, result: String)   |
+| + getId(): int                                 |
+| + getUid(): int                                |
+| + getBetAmount(): int                          |
+| + getResult(): String                          |
++------------------------------------------------+
+
+```
 
 # 6. 類別關係圖
 

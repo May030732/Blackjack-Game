@@ -1,4 +1,6 @@
-public class BlackjackGame {
+package blackjack;
+
+public class BlackJackGame {
 
     private Deck deck;
     private Player player;
@@ -9,7 +11,7 @@ public class BlackjackGame {
     private GameState state;
     private GameResult result;
 
-    public BlackjackGame() {
+    public BlackJackGame() {
         deck = new Deck();
         player = new Player(1000);
         dealer = new Dealer();

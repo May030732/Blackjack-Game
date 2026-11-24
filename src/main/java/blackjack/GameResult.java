@@ -1,3 +1,5 @@
+package blackjack;
+
 public enum GameResult {
     PLAYER_WIN,
     DEALER_WIN,

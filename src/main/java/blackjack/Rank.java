@@ -1,3 +1,4 @@
+package blackjack;
 
 public enum Rank {
     ACE(11),

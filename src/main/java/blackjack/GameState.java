@@ -1,3 +1,5 @@
+package blackjack;
+
 public enum GameState {
     READY,
     PLAYER_TURN,

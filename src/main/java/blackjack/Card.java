@@ -1,3 +1,5 @@
+package blackjack;
+
 public class Card {
 
     private final Suit suit;

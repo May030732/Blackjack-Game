@@ -1,5 +1,10 @@
 package blackjack;
 
+import blackjack.model.Card;
+import blackjack.model.Hand;
+import blackjack.model.Rank;
+import blackjack.model.Suit;
+
 public class HandTest {
 
     public static void main(String[] args) {

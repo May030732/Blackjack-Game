@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>21點 Blackjack - 經典賭場牌桌 UI 原型</title>
+  <!-- 載入 Google Fonts：Noto Sans TC 與 Cinzel 增添經典牌桌質感 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. 基礎變數與主題設計 (Casino Emerald Felt & Brass Gold)
+       ========================================================================== */
+    :root {
+      --felt-light: #1e6b43;
+      --felt-main: #145232;
+      --felt-dark: #0a2e1b;
+      --gold-primary: #e5b95c;
+      --gold-light: #f8dfa0;
+      --gold-dark: #a67c2e;
+      --card-bg: #fcfaf2;
+      --card-border: #dcd6c4;
+      --suit-red: #c92a2a;
+      --suit-black: #1c1e21;
+      --glass-bg: rgba(8, 28, 18, 0.72);
+      --glass-border: rgba(229, 185, 92, 0.35);
+      --shadow-card: 0 12px 24px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+      --transition-smooth: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--felt-dark);
+      color: #f4f6f4;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ==========================================================================
+       2. 賭場牌桌主舞台 (Table Felt & Decorative Markings)
+       ========================================================================== */
+    .casino-table {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 42%, var(--felt-light) 0%, var(--felt-main) 55%, var(--felt-dark) 100%);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 20px 28px;
+      overflow: hidden;
+    }
+
+    /* 細微絨布噪點紋理 */
+    .casino-table::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      background-size: 16px 16px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 牌桌內側金色邊框裝飾線 */
+    .table-border-frame {
+      position: absolute;
+      inset: 14px;
+      border: 2px solid rgba(229, 185, 92, 0.22);
+      border-radius: 36px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 牌桌中央經典弧形規則印字 (改進亮點：強化賭場沉浸感) */
+    .table-felt-markings {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(680px, 85vw);
+      text-align: center;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+    }
+
+    .table-felt-markings .title-en {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 3vw, 2.3rem);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--gold-light);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .table-felt-markings .subtitle-en {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.7rem, 1.3vw, 0.9rem);
+      letter-spacing: 0.16em;
+      color: #ffffff;
+      margin-top: 6px;
+      border-top: 1px solid rgba(229, 185, 92, 0.5);
+      border-bottom: 1px solid rgba(229, 185, 92, 0.5);
+      display: inline-block;
+      padding: 4px 18px;
+    }
+
+    /* ==========================================================================
+       3. 頂部區域：莊家標題、點數總和、右上角功能按鈕
+       ========================================================================== */
+    .top-bar {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .dealer-header {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .role-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .score-pill {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 5px 18px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(6px);
+    }
+
+    .score-pill span {
+      color: var(--gold-primary);
+      font-size: 1.08rem;
+      margin-left: 4px;
+    }
+
+    /* 右上角：設定 & 帳戶資料按鈕 */
+    .top-actions {
+      grid-column: 3;
+      justify-self: end;
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      background: linear-gradient(180deg, rgba(26, 66, 45, 0.9) 0%, rgba(12, 38, 25, 0.95) 100%);
+      color: var(--gold-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      transition: var(--transition-smooth);
+    }
+
+    .nav-btn:hover {
+      border-color: var(--gold-primary);
+      background: linear-gradient(180deg, rgba(38, 92, 63, 0.95) 0%, rgba(18, 54, 36, 0.98) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       4. 中央主遊戲區：左側牌組 + 莊家手牌 + 操作按鈕 + 玩家手牌
+       ========================================================================== */
+    .board-center {
+      position: relative;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 180px 1fr 180px;
+      align-items: center;
+      gap: 20px;
+      my: auto;
+      padding: 12px 0;
+    }
+
+    /* 左側牌組 (撲克牌 牌組 / 發牌靴) */
+    .deck-zone {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .deck-stack {
+      position: relative;
+      width: 118px;
+      height: 168px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .deck-stack:hover {
+      transform: translateY(-4px);
+    }
+
+    /* 堆疊厚度的底層牌影 */
+    .deck-stack::before,
+    .deck-stack::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      background: #e9e4d5;
+      border: 1px solid #b5ae99;
+    }
+
+    .deck-stack::before {
+      transform: translate(-6px, 6px);
+      box-shadow: -4px 8px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .deck-stack::after {
+      transform: translate(-3px, 3px);
+    }
+
+    .deck-label-badge {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #d8e6de;
+      font-size: 0.82rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-align: center;
+    }
+
+    /* 中央垂直軌道：莊家牌 -> 操作列 -> 玩家牌 */
+    .play-lane {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 26px;
+    }
+
+    .cards-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(20px, 5vw, 56px);
+      min-height: 175px;
+    }
+
+    /* ==========================================================================
+       5. 撲克牌元件設計 (正面牌面 & 經典暗花牌背)
+       ========================================================================== */
+    .playing-card {
+      position: relative;
+      width: 122px;
+      height: 174px;
+      border-radius: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .playing-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.55);
+      z-index: 4;
+    }
+
+    /* 牌面角落點數與花色 */
+    .card-corner {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.05;
+      font-weight: 900;
+      font-size: 1.2rem;
+    }
+
+    .card-corner.top-left {
+      top: 10px;
+      left: 11px;
+    }
+
+    .card-corner.bottom-right {
+      bottom: 10px;
+      right: 11px;
+      transform: rotate(180deg);
+    }
+
+    .card-center-suit {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.4rem;
+      opacity: 0.92;
+    }
+
+    .suit-red {
+      color: var(--suit-red);
+    }
+
+    .suit-black {
+      color: var(--suit-black);
+    }
+
+    /* 牌背設計 (用於牌組與莊家蓋牌) */
+    .playing-card.card-back {
+      background: #ffffff;
+      padding: 7px;
+    }
+
+    .card-back-pattern {
+      width: 100%;
+      height: 100%;
+      border-radius: 9px;
+      background-color: #8b1e24;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(229, 185, 92, 0.22) 0, rgba(229, 185, 92, 0.22) 2px, transparent 2px, transparent 10px),
+        repeating-linear-gradient(-45deg, rgba(229, 185, 92, 0.22) 0, rgba(229, 185, 92, 0.22) 2px, transparent 2px, transparent 10px);
+      border: 2px solid var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .card-back-emblem {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(139, 30, 36, 0.92);
+      border: 2px solid var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 牌背主題切換支援 (透過設定彈窗可即時預覽切換) */
+    body[data-card-theme="blue"] .card-back-pattern,
+    body[data-card-theme="blue"] .card-back-emblem {
+      background-color: #183a66;
+    }
+    body[data-card-theme="black"] .card-back-pattern,
+    body[data-card-theme="black"] .card-back-emblem {
+      background-color: #1c1d21;
+    }
+
+    /* ==========================================================================
+       6. 中央操作按鈕列 (要牌 HIT / 停牌 STAND / 加注 禁用)
+       ========================================================================== */
+    .action-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: clamp(14px, 3vw, 34px);
+      padding: 8px 16px;
+    }
+
+    .action-btn {
+      min-width: 146px;
+      padding: 13px 22px;
+      border-radius: 14px;
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.25;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .action-btn .en-sub {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    /* 要牌 HIT - 翡翠金主按鈕 */
+    .btn-hit {
+      background: linear-gradient(180deg, #2fb36d 0%, #1d834d 100%);
+      color: #ffffff;
+      border: 1px solid #6ee7a8;
+      box-shadow: 0 6px 0 #115230, 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-hit:hover {
+      background: linear-gradient(180deg, #38c77b 0%, #229659 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 #115230, 0 14px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .btn-hit:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #115230, 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 停牌 STAND - 琥珀金橘按鈕 */
+    .btn-stand {
+      background: linear-gradient(180deg, #e89f2e 0%, #c47412 100%);
+      color: #ffffff;
+      border: 1px solid #fcd38d;
+      box-shadow: 0 6px 0 #854b06, 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-stand:hover {
+      background: linear-gradient(180deg, #f5ad3b 0%, #d48017 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 #854b06, 0 14px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .btn-stand:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #854b06, 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 加注 (禁用) - 明確不可點擊狀態與懸停提示 */
+    .btn-double-disabled {
+      background: rgba(24, 34, 29, 0.65);
+      color: rgba(220, 228, 224, 0.45);
+      border: 1px dashed rgba(255, 255, 255, 0.25);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+      cursor: not-allowed;
+    }
+
+    .btn-double-disabled::after {
+      content: "暫時未實作";
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(10, 18, 14, 0.95);
+      color: var(--gold-light);
+      border: 1px solid var(--glass-border);
+      font-size: 0.75rem;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 6px 10px;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-smooth);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-double-disabled:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ==========================================================================
+       7. 底部區域：玩家點數、玩家名稱、右下角下注與現有籌碼面板
+       ========================================================================== */
+    .bottom-bar {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 16px;
+    }
+
+    .player-footer {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .player-name-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.06em;
+    }
+
+    .rank-badge {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: #161208;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    /* 右下角籌碼面板 */
+    .chips-hud {
+      grid-column: 3;
+      justify-self: end;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 12px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 210px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.38);
+    }
+
+    .chip-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 0.95rem;
+    }
+
+    .chip-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cfe0d6;
+      font-weight: 500;
+    }
+
+    .chip-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+      border: 2px dashed #ffffff;
+    }
+
+    .chip-icon.bet {
+      background: #c92a2a;
+      color: #ffffff;
+    }
+
+    .chip-icon.balance {
+      background: #d99b26;
+      color: #1a1204;
+    }
+
+    .chip-value {
+      font-family: 'Cinzel', 'Noto Sans TC', sans-serif;
+      font-weight: 700;
+      font-size: 1.12rem;
+      color: var(--gold-light);
+    }
+
+    /* ==========================================================================
+       8. 彈窗系統 (設定 & 帳戶資料 - 原生 <dialog> 支援 Backdrop 與動畫)
+       ========================================================================== */
+    dialog.casino-modal {
+      margin: auto;
+      border: 1px solid var(--gold-primary);
+      border-radius: 20px;
+      background: linear-gradient(160deg, #133624 0%, #0b2216 100%);
+      color: #f4f6f4;
+      width: min(460px, 92vw);
+      padding: 0;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+    }
+
+    dialog.casino-modal::backdrop {
+      background: rgba(3, 12, 7, 0.76);
+      backdrop-filter: blur(5px);
+    }
+
+    dialog.casino-modal[open] {
+      animation: modalPopIn 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes modalPopIn {
+      from {
+        opacity: 0;
+        transform: scale(0.94) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      background: rgba(0, 0, 0, 0.28);
+      border-bottom: 1px solid rgba(229, 185, 92, 0.25);
+    }
+
+    .modal-header h2 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-close {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e0e8e3;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-close:hover {
+      background: #c92a2a;
+      border-color: #ff8787;
+      color: #ffffff;
+    }
+
+    .modal-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* 設定項目樣式 */
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .setting-info .label {
+      font-weight: 700;
+      font-size: 0.96rem;
+      color: #ffffff;
+    }
+
+    .setting-info .desc {
+      font-size: 0.8rem;
+      color: #9cb5a7;
+      margin-top: 2px;
+    }
+
+    /* 開關 Switch */
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+      display: inline-block;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .toggle-slider::before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      transition: 0.25s;
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background-color: #2fb36d;
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(22px);
+    }
+
+    /* 牌背款式選擇器 */
+    .theme-selector {
+      display: flex;
+      gap: 8px;
+    }
+
+    .theme-chip {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      color: #e4ece7;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .theme-chip.active,
+    .theme-chip:hover {
+      border-color: var(--gold-primary);
+      background: rgba(229, 185, 92, 0.22);
+      color: var(--gold-light);
+    }
+
+    /* 帳戶資料彈窗內部樣式 */
+    .profile-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(229, 185, 92, 0.22);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .avatar-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-primary), #8c6218);
+      color: #141006;
+      font-size: 1.5rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--gold-light);
+      flex-shrink: 0;
+    }
+
+    .profile-meta h3 {
+      font-size: 1.1rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .profile-meta p {
+      font-size: 0.82rem;
+      color: #9cb5a7;
+      margin-top: 4px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+
+    .stat-box .val {
+      font-family: 'Cinzel', 'Noto Sans TC', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+
+    .stat-box .lbl {
+      font-size: 0.76rem;
+      color: #b4c9bd;
+      margin-top: 4px;
+    }
+
+    .modal-footer {
+      padding: 14px 22px;
+      background: rgba(0, 0, 0, 0.22);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-primary-btn {
+      background: linear-gradient(180deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+      color: #161004;
+      border: none;
+      border-radius: 10px;
+      padding: 9px 20px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-primary-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    /* ==========================================================================
+       9. 響應式微調 (確保平板與手機版面不重疊)
+       ========================================================================== */
+    @media (max-width: 860px) {
+      .casino-table {
+        padding: 14px 16px;
+      }
+
+      .top-bar {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .dealer-header {
+        grid-column: 1;
+        order: 2;
+      }
+
+      .top-actions {
+        grid-column: 1;
+        justify-self: end;
+        order: 1;
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .board-center {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .deck-zone {
+        display: none; /* 小螢幕隱藏左側裝飾牌靴，聚焦主操作區 */
+      }
+
+      .play-lane {
+        grid-column: 1;
+        gap: 18px;
+      }
+
+      .playing-card {
+        width: 102px;
+        height: 146px;
+      }
+
+      .bottom-bar {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .player-footer {
+        grid-column: 1;
+      }
+
+      .chips-hud {
+        grid-column: 1;
+        justify-self: stretch;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    }
+  </style>
+</head>
+<body data-card-theme="red">
+
+  <main class="casino-table">
+    <!-- 牌桌金線外框與中央規則印字 -->
+    <div class="table-border-frame"></div>
+    <div class="table-felt-markings" aria-hidden="true">
+      <div class="title-en">BLACKJACK</div>
+      <div class="subtitle-en">PAYS 3 TO 2 &bull; DEALER STANDS ON 17</div>
+    </div>
+
+    <!-- ==================== 1. 頂部區域：莊家資訊 + 右上角彈窗按鈕 ==================== -->
+    <header class="top-bar">
+      <div class="dealer-header">
+        <div class="role-title">莊家</div>
+        <div class="score-pill">點數總和: <span>10 + ?</span></div>
+      </div>
+
+      <nav class="top-actions" aria-label="功能選單">
+        <button type="button" class="nav-btn" onclick="document.getElementById('settingsModal').showModal()">
+          <!-- 設定齒輪圖示 -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          設定
+        </button>
+
+        <button type="button" class="nav-btn" onclick="document.getElementById('accountModal').showModal()">
+          <!-- 帳戶圖示 -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          帳戶資料
+        </button>
+      </nav>
+    </header>
+
+    <!-- ==================== 2. 中央牌桌主區域 ==================== -->
+    <section class="board-center">
+      <!-- 左側：撲克牌 (牌組) -->
+      <aside class="deck-zone" aria-label="發牌牌組">
+        <div class="deck-stack" title="發牌牌組 (剩餘 48 張)">
+          <div class="playing-card card-back" style="width: 100%; height: 100%;">
+            <div class="card-back-pattern">
+              <div class="card-back-emblem">21</div>
+            </div>
+          </div>
+        </div>
+        <div class="deck-label-badge">牌組 &bull; 剩餘 48 張</div>
+      </aside>
+
+      <!-- 中央垂直牌局軌道 -->
+      <div class="play-lane">
+        <!-- 莊家手牌區：撲克牌 (莊家) 1 & 2 -->
+        <div class="cards-row" aria-label="莊家手牌">
+          <!-- 莊家牌 1：明牌 (黑桃 K) -->
+          <div class="playing-card suit-black" title="莊家牌 1：黑桃 K">
+            <div class="card-corner top-left">
+              <span>K</span>
+              <span>&spades;</span>
+            </div>
+            <div class="card-center-suit">&spades;</div>
+            <div class="card-corner bottom-right">
+              <span>K</span>
+              <span>&spades;</span>
+            </div>
+          </div>
+
+          <!-- 莊家牌 2：暗牌 (蓋牌狀態) -->
+          <div class="playing-card card-back" title="莊家牌 2：暗牌">
+            <div class="card-back-pattern">
+              <div class="card-back-emblem">21</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 中央操作按鈕列：要牌 HIT / 停牌 STAND / 加注 (禁用) -->
+        <div class="action-controls" role="group" aria-label="玩家操作選項">
+          <button type="button" class="action-btn btn-hit">
+            <span>要牌</span>
+            <span class="en-sub">HIT</span>
+          </button>
+
+          <button type="button" class="action-btn btn-stand">
+            <span>停牌</span>
+            <span class="en-sub">STAND</span>
+          </button>
+
+          <button type="button" class="action-btn btn-double-disabled" disabled aria-disabled="true">
+            <span>加注 (禁用)</span>
+            <span class="en-sub">DOUBLE DOWN</span>
+          </button>
+        </div>
+
+        <!-- 玩家手牌區：撲克牌 (玩家) 1 & 2 -->
+        <div class="cards-row" aria-label="玩家手牌">
+          <!-- 玩家牌 1：紅心 10 -->
+          <div class="playing-card suit-red" title="玩家牌 1：紅心 10">
+            <div class="card-corner top-left">
+              <span>10</span>
+              <span>&hearts;</span>
+            </div>
+            <div class="card-center-suit">&hearts;</div>
+            <div class="card-corner bottom-right">
+              <span>10</span>
+              <span>&hearts;</span>
+            </div>
+          </div>
+
+          <!-- 玩家牌 2：方塊 9 -->
+          <div class="playing-card suit-red" title="玩家牌 2：方塊 9">
+            <div class="card-corner top-left">
+              <span>9</span>
+              <span>&diams;</span>
+            </div>
+            <div class="card-center-suit">&diams;</div>
+            <div class="card-corner bottom-right">
+              <span>9</span>
+              <span>&diams;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右側留白平衡網格 -->
+      <div aria-hidden="true"></div>
+    </section>
+
+    <!-- ==================== 3. 底部區域：玩家點數、名稱與右下角籌碼面板 ==================== -->
+    <footer class="bottom-bar">
+      <div class="player-footer">
+        <div class="score-pill">點數總和: <span>19</span></div>
+        <div class="player-name-tag">
+          <span>Player_Name</span>
+          <span class="rank-badge">黃金</span>
+        </div>
+      </div>
+
+      <div class="chips-hud" aria-label="籌碼與下注資訊">
+        <div class="chip-row">
+          <span class="chip-label">
+            <span class="chip-icon bet">$</span>
+            下注:
+          </span>
+          <span class="chip-value">500</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip-label">
+            <span class="chip-icon balance">$</span>
+            現有籌碼:
+          </span>
+          <span class="chip-value">1,000</span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ==================== 彈窗 1：設定 (Settings Modal) ==================== -->
+  <dialog id="settingsModal" class="casino-modal">
+    <div class="modal-header">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        遊戲設定
+      </h2>
+      <button type="button" class="modal-close" aria-label="關閉視窗" onclick="document.getElementById('settingsModal').close()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="label">發牌與籌碼音效</div>
+          <div class="desc">開啟撲克牌翻牌與籌碼碰撞聲效</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="label">賭場爵士背景音樂</div>
+          <div class="desc">播放輕柔環境背景音樂</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="label">牌背款式主題</div>
+          <div class="desc">即時切換牌組與莊家蓋牌花色</div>
+        </div>
+        <div class="theme-selector" id="themeSelector">
+          <button type="button" class="theme-chip active" data-theme="red">經典紅</button>
+          <button type="button" class="theme-chip" data-theme="blue">皇家藍</button>
+          <button type="button" class="theme-chip" data-theme="black">黑金</button>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="label">21點規則說明</div>
+          <div class="desc">莊家 17 點必須停牌，Blackjack 賠率 3:2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="modal-primary-btn" onclick="document.getElementById('settingsModal').close()">完成</button>
+    </div>
+  </dialog>
+
+  <!-- ==================== 彈窗 2：帳戶資料 (Account Info Modal) ==================== -->
+  <dialog id="accountModal" class="casino-modal">
+    <div class="modal-header">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        帳戶資料
+      </h2>
+      <button type="button" class="modal-close" aria-label="關閉視窗" onclick="document.getElementById('accountModal').close()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="profile-card">
+        <div class="avatar-circle">A</div>
+        <div class="profile-meta">
+          <h3>Player_Name <span class="rank-badge">黃金</span></h3>
+          <p>UID: 1122334455 &bull; 加入日期：2026/05</p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="val">1,000</div>
+          <div class="lbl">現有籌碼</div>
+        </div>
+        <div class="stat-box">
+          <div class="val">54.2%</div>
+          <div class="lbl">歷史勝率</div>
+        </div>
+        <div class="stat-box">
+          <div class="val">128</div>
+          <div class="lbl">總對戰局數</div>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="label">歷史戰績查詢</div>
+          <div class="desc">連結至玩家資料庫</div>
+        </div>
+        <button type="button" class="nav-btn" style="padding: 7px 14px; font-size: 0.85rem;">連結</button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="modal-primary-btn" onclick="document.getElementById('accountModal').close()">關閉</button>
+    </div>
+  </dialog>
+
+  <!-- 輕量互動腳本：支援點擊彈窗背景關閉，以及牌背主題切換預覽 -->
+  <script>
+    // 點擊彈窗外部遮罩即可關閉彈窗
+    document.querySelectorAll('dialog.casino-modal').forEach((dialog) => {
+      dialog.addEventListener('click', (event) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog =
+          rect.top <= event.clientY &&
+          event.clientY <= rect.top + rect.height &&
+          rect.left <= event.clientX &&
+          event.clientX <= rect.left + rect.width;
+        if (!isInDialog) {
+          dialog.close();
+        }
+      });
+    });
+
+    // 設定彈窗內即時切換牌背主題色
+    const themeButtons = document.querySelectorAll('#themeSelector .theme-chip');
+    themeButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        themeButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.body.setAttribute('data-card-theme', btn.dataset.theme);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,35 +1,16 @@
-
 package blackjack.model;
 
 public class GameRecord {
 
     private int id;
-    private int uid;  //新增uid
+    private int uid;
+    private String playerName; // 新增：從玩家資料表查出的姓名
     private int betAmount;
     private int playerScore;
     private int dealerScore;
     private String result;
     private int chipChange;
     private String playedAt;
-/* 
-    public GameRecord() {
-        System.out.println("GameRecord 無參數建構子被呼叫");
-    }
-
-    public GameRecord(int id, int uid, int betAmount,
-                      int playerScore, int dealerScore,
-                      String result, int chipChange,
-                      String playedAt) {
-
-        this.id = id;
-        this.uid = uid;
-        this.betAmount = betAmount;
-        this.playerScore = playerScore;
-        this.dealerScore = dealerScore;
-        this.result = result;
-        this.chipChange = chipChange;
-        this.playedAt = playedAt;
-    }*/
 
     public int getId() {
         return id;
@@ -45,6 +26,14 @@ public class GameRecord {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public int getBetAmount() {

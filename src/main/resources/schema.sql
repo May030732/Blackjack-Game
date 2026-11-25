@@ -5,6 +5,16 @@ CREATE TABLE IF NOT EXISTS players (
     player_name TEXT NOT NULL
 );
 
+-- 會員帳號資料表
+CREATE TABLE IF NOT EXISTS members (
+    uid INTEGER PRIMARY KEY,
+    login_name TEXT NOT NULL UNIQUE,
+    password_salt BLOB NOT NULL,
+    password_hash BLOB NOT NULL,
+
+    FOREIGN KEY (uid) REFERENCES players(uid)
+);
+
 -- 建立遊戲歷史紀錄資料表
 CREATE TABLE IF NOT EXISTS game_history (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,3 +56,4 @@ ON players(player_name);
 -- 遊戲紀錄 UID 索引
 CREATE INDEX IF NOT EXISTS idx_history_uid
 ON game_history(uid);
+

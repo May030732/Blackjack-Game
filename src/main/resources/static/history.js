@@ -88,6 +88,7 @@ function displayHistory(records, emptyMessage = "找不到遊戲歷史紀錄") {
         const values = [
             record.id,
             record.uid,
+            record.playerName ?? "—",
             record.betAmount,
             record.playerScore,
             record.dealerScore,

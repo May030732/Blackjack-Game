@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00180a">
+  <title>歷史對局｜BLACKJACK 21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=Noto+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="css/tailwind.config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/history.css">
+</head>
+<body class="min-h-screen bg-surface text-on-surface">
+  <div class="min-h-screen md:flex">
+    <aside class="history-sidebar flex w-full flex-col justify-between p-5 md:fixed md:inset-y-0 md:w-72">
+      <div>
+        <a class="flex items-center gap-3 font-headline-sm text-primary" href="index.html">
+          <span class="material-symbols-outlined text-3xl">playing_cards</span>
+          <span>BLACKJACK 21</span>
+        </a>
+        <p class="mt-8 font-label-sm uppercase tracking-widest text-outline">會員貴賓專區</p>
+        <nav class="mt-3 flex flex-col gap-2">
+          <a class="rounded-lg bg-secondary-container px-4 py-3 font-label-lg text-on-surface" href="history.html"><span class="material-symbols-outlined mr-2 align-middle">history</span>歷史對局紀錄</a>
+          <a class="rounded-lg px-4 py-3 font-label-lg text-on-surface-variant hover:bg-surface-container-high" href="game.html"><span class="material-symbols-outlined mr-2 align-middle">casino</span>返回遊戲</a>
+        </nav>
+      </div>
+      <a class="surface-button mt-6 rounded-lg px-4 py-3 text-center font-label-md" href="login.html">會員登入</a>
+    </aside>
+    <main class="w-full px-4 py-8 md:ml-72 md:px-8">
+      <div class="mx-auto max-w-6xl">
+        <header class="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p class="font-label-sm tracking-[0.2em] text-outline">GAME HISTORY</p>
+            <h1 class="mt-1 font-headline-lg text-primary">歷史對局紀錄</h1>
+            <p class="mt-2 text-body-md text-on-surface-variant">查看過往牌局與籌碼變化。</p>
+          </div>
+          <a class="gold-button rounded-lg px-5 py-3 font-label-md" href="game.html">返回遊戲</a>
+        </header>
+        <section class="mb-6 grid gap-4 sm:grid-cols-3" aria-label="歷史統計">
+          <div class="rounded-xl bg-surface-container-low p-5"><p class="font-label-sm text-outline">總對局數</p><p class="mt-2 font-headline-md text-primary">—</p></div>
+          <div class="rounded-xl bg-surface-container-low p-5"><p class="font-label-sm text-outline">歷史勝率</p><p class="mt-2 font-headline-md text-primary">—</p></div>
+          <div class="rounded-xl bg-surface-container-low p-5"><p class="font-label-sm text-outline">籌碼淨變化</p><p class="mt-2 font-headline-md text-secondary">—</p></div>
+        </section>
+        <section class="rounded-xl bg-surface-container-lowest p-5 shadow-lg">
+          <form id="history-search" class="flex flex-col gap-3 sm:flex-row">
+            <label class="sr-only" for="history-query">搜尋歷史對局</label>
+            <input class="history-search-input min-h-11 flex-1 rounded-lg px-4 text-body-md text-on-surface placeholder:text-outline focus:outline-none" id="history-query" name="query" placeholder="輸入搜尋條件">
+            <button class="gold-button rounded-lg px-5 py-2 font-label-md" type="submit"><span class="material-symbols-outlined mr-1 align-middle">search</span>搜尋</button>
+            <button class="surface-button rounded-lg px-5 py-2 font-label-md" type="button" data-history-retry>重新載入</button>
+          </form>
+          <div class="status-message mt-4 rounded-lg border border-primary/20 bg-surface-container-low px-4 py-3 text-body-sm text-on-surface-variant" role="status" aria-live="polite" data-page-status>
+            <span data-status-message>歷史紀錄尚未連接後端服務。</span>
+          </div>
+        </section>
+        <section class="mt-6 overflow-hidden rounded-xl bg-surface-container-lowest shadow-xl">
+          <div class="overflow-x-auto">
+            <table class="history-table w-full min-w-[720px] border-collapse text-left">
+              <thead class="bg-surface-container">
+                <tr><th class="p-4">紀錄 ID</th><th class="p-4">下注金額</th><th class="p-4">玩家點數</th><th class="p-4">莊家點數</th><th class="p-4">結果</th><th class="p-4">遊戲時間</th></tr>
+              </thead>
+              <tbody><tr><td class="p-5 text-center text-on-surface-variant" colspan="6" data-history-results>尚無載入的歷史紀錄。</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="toast fixed bottom-8 left-1/2 z-50 flex items-center gap-3 rounded-lg bg-surface-container-high px-6 py-3 shadow-2xl" role="status" aria-live="polite" data-toast>
+    <span class="material-symbols-outlined text-primary" data-toast-icon>info</span><span data-toast-message></span>
+  </div>
+  <script type="module" src="js/pages/history.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00180a">
+  <title>BLACKJACK 21｜貴賓廳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=Noto+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="css/tailwind.config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="min-h-screen bg-surface text-on-surface antialiased">
+  <main class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-10">
+    <div class="felt-backdrop absolute inset-0"></div>
+    <div class="felt-texture pointer-events-none absolute inset-0 opacity-[0.12]"></div>
+    <div class="felt-vignette pointer-events-none absolute inset-0"></div>
+    <div class="brass-frame pointer-events-none absolute inset-4 rounded-xl md:inset-10"></div>
+
+    <div class="relative z-10 flex min-h-[760px] w-full max-w-4xl flex-col items-center justify-between py-6 text-center">
+      <div class="flex items-center gap-3 rounded-full bg-surface-container-low/80 px-5 py-2 shadow-lg backdrop-blur">
+        <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></span>
+        <span class="font-label-sm uppercase tracking-[0.22em] text-secondary">VIP SALON PRIVÉ · EXCLUSIVE EDITION</span>
+        <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></span>
+      </div>
+
+      <section class="flex flex-col items-center">
+        <div class="relative mb-8 flex h-56 w-72 items-center justify-center md:h-64 md:w-80" aria-label="黑桃 A 與紅心 K 撲克牌">
+          <div class="playing-card absolute flex h-52 w-36 -translate-x-8 -rotate-12 flex-col justify-between rounded-lg p-3 md:h-60 md:w-40">
+            <span class="font-headline-sm">A<br>♠</span><span class="self-center text-6xl">♠</span><span class="rotate-180 self-end font-headline-sm">A<br>♠</span>
+          </div>
+          <div class="playing-card is-red absolute z-10 flex h-52 w-36 translate-x-8 rotate-12 flex-col justify-between rounded-lg p-3 md:h-60 md:w-40">
+            <span class="font-headline-sm">K<br>♥</span><span class="self-center text-6xl">♥</span><span class="rotate-180 self-end font-headline-sm">K<br>♥</span>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-3">
+          <h1 class="font-headline-xl text-5xl font-bold tracking-[0.14em] text-primary drop-shadow-lg sm:text-6xl md:text-7xl">BLACKJACK</h1>
+          <span class="font-headline-xl text-6xl font-bold text-primary-fixed sm:text-7xl md:text-8xl">21</span>
+        </div>
+        <div class="mt-4 flex items-center gap-3 text-primary/80">
+          <span class="h-px w-12 bg-primary/60"></span><span>✦ ♠ ♥ ♦ ♣ ✦</span><span class="h-px w-12 bg-primary/60"></span>
+        </div>
+        <p class="mt-4 font-headline-md tracking-[0.18em] text-on-surface">經典二十一點撲克牌遊戲</p>
+      </section>
+
+      <nav class="flex w-full max-w-sm flex-col gap-3" aria-label="入口">
+        <a class="gold-button flex min-h-16 flex-col items-center justify-center rounded-lg px-6 py-2 font-headline-sm shadow-xl transition hover:brightness-110" href="login.html">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined">lock_open</span>會員登入</span>
+          <span class="font-label-sm tracking-[0.2em]">MEMBER LOGIN</span>
+        </a>
+        <a class="surface-button flex min-h-16 flex-col items-center justify-center rounded-lg px-6 py-2 font-headline-sm transition" href="game.html">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined">person_outline</span>訪客遊玩</span>
+          <span class="font-label-sm tracking-[0.2em] text-secondary">PLAY AS GUEST</span>
+        </a>
+        <p class="font-body-sm text-secondary/70">訪客對局紀錄是否保存，依遊戲服務設定為準。</p>
+        <a class="mt-2 font-headline-sm text-primary-fixed-dim underline-offset-4 hover:underline" href="register.html">建立會員帳號 · CREATE AN ACCOUNT</a>
+      </nav>
+
+      <footer class="font-body-sm text-secondary/50">
+        BLACKJACK 21 · 純學術模擬娛樂系統 · 本遊戲採用虛擬籌碼
+      </footer>
+    </div>
+  </main>
+  <div class="toast fixed bottom-8 left-1/2 z-50 flex items-center gap-3 rounded-lg bg-surface-container-high px-6 py-3 shadow-2xl" role="status" aria-live="polite" data-toast>
+    <span class="material-symbols-outlined text-primary" data-toast-icon>info</span><span data-toast-message>歡迎進入二十一點貴賓廳</span>
+  </div>
+  <script type="module" src="js/pages/index.js"></script>
+</body>
+</html>

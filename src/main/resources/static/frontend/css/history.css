@@ -1,0 +1,35 @@
+.history-sidebar {
+  background: rgba(0, 18, 7, 0.92);
+}
+
+.history-search-input {
+  border: 1px solid rgba(78, 70, 55, 0.8);
+  background: #00150a;
+}
+
+.history-search-input:focus {
+  border-color: #ffd682;
+  box-shadow: 0 0 0 1px rgba(255, 214, 130, 0.55);
+}
+
+.history-table th,
+.history-table td {
+  border-bottom: 1px solid rgba(78, 70, 55, 0.45);
+}
+
+.history-table th {
+  color: #ffd682;
+  font-family: "Noto Serif", serif;
+  font-weight: 600;
+}
+
+.history-table tbody tr:hover {
+  background: rgba(13, 48, 29, 0.72);
+}
+
+@media (max-width: 768px) {
+  .history-sidebar {
+    position: static;
+    width: 100%;
+  }
+}

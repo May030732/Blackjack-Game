@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00180a">
+  <title>會員登入｜BLACKJACK 21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=Noto+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="css/tailwind.config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-shell flex min-h-screen flex-col items-center justify-center px-4 py-8 text-on-surface">
+  <a class="surface-button absolute left-5 top-5 flex items-center gap-2 rounded-full px-4 py-2 font-label-md" href="index.html">
+    <span class="material-symbols-outlined text-primary">west</span>返回首頁
+  </a>
+  <main class="auth-card relative w-full max-w-md rounded-2xl p-7 sm:p-10">
+    <header class="mb-7 text-center">
+      <div class="mb-3 text-4xl text-primary" aria-hidden="true">♠ ♥</div>
+      <p class="font-label-sm tracking-[0.3em] text-primary-fixed-dim">BLACKJACK 21</p>
+      <h1 class="mt-2 font-headline-md text-primary">會員登入</h1>
+      <p class="mt-2 font-body-md text-on-surface-variant">登入帳戶，繼續你的二十一點遊戲</p>
+    </header>
+    <form id="login-form" class="flex flex-col gap-5">
+      <label class="flex flex-col gap-2 font-label-md text-on-surface-variant" for="username">
+        會員名稱
+        <input class="auth-input h-12 rounded-lg px-4 font-body-md text-on-surface placeholder:text-outline focus:outline-none" autocomplete="username" id="username" name="username" placeholder="請輸入會員名稱" required minlength="4" maxlength="16">
+      </label>
+      <label class="flex flex-col gap-2 font-label-md text-on-surface-variant" for="password">
+        密碼
+        <span class="relative flex">
+          <input class="auth-input h-12 w-full rounded-lg px-4 pr-12 font-body-md text-on-surface placeholder:text-outline focus:outline-none" autocomplete="current-password" id="password" name="password" type="password" placeholder="請輸入密碼" required minlength="6">
+          <button class="absolute right-3 top-1/2 -translate-y-1/2 text-primary-fixed-dim" id="toggle-password" type="button" aria-label="顯示密碼" aria-pressed="false">
+            <span class="material-symbols-outlined" data-password-icon>visibility</span>
+          </button>
+        </span>
+      </label>
+      <button class="gold-button mt-2 flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 font-headline-sm font-bold shadow-lg disabled:cursor-wait disabled:opacity-60" type="submit">
+        <span class="material-symbols-outlined">login</span>登入遊戲
+      </button>
+    </form>
+    <div class="my-6 flex items-center gap-3 text-primary/50"><span class="h-px flex-1 bg-primary/20"></span>♠ ♦ ♣<span class="h-px flex-1 bg-primary/20"></span></div>
+    <p class="text-center font-body-md text-on-surface-variant">還沒有帳號？ <a class="text-primary underline-offset-4 hover:underline" href="register.html">立即註冊</a></p>
+    <a class="surface-button mt-5 flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 font-label-md" href="game.html">
+      <span class="material-symbols-outlined text-primary">casino</span>以訪客身分遊玩
+    </a>
+    <p class="mt-6 text-center font-body-sm text-outline">登入功能需連接後端 API 後啟用。</p>
+  </main>
+  <div class="toast fixed bottom-8 left-1/2 z-50 flex items-center gap-3 rounded-lg bg-surface-container-high px-6 py-3 shadow-2xl" role="status" aria-live="polite" data-toast>
+    <span class="material-symbols-outlined text-primary" data-toast-icon>info</span><span data-toast-message></span>
+  </div>
+  <script type="module" src="js/pages/login.js"></script>
+</body>
+</html>

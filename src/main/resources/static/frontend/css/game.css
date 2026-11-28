@@ -1,0 +1,28 @@
+.game-table {
+  background:
+    radial-gradient(circle at 50% 45%, #1e6b43 0%, #145232 42%, #0a2e1b 85%, #00180a 100%);
+}
+
+.game-status-card {
+  background: rgba(13, 48, 29, 0.92);
+  box-shadow: 0 16px 40px rgba(0, 18, 7, 0.72);
+}
+
+.game-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  filter: grayscale(0.35);
+}
+
+.card-back {
+  background:
+    repeating-linear-gradient(45deg, rgba(229, 185, 92, 0.18) 0 2px, transparent 2px 10px),
+    repeating-linear-gradient(-45deg, rgba(229, 185, 92, 0.18) 0 2px, transparent 2px 10px),
+    #720000;
+}
+
+@media (max-width: 640px) {
+  .game-table {
+    min-height: 760px;
+  }
+}

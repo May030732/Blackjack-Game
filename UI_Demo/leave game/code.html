@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&amp;family=Noto+Serif:wght@500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-primary-fixed-variant": "#5c4300",
+          "secondary-fixed": "#b2f1c5",
+          "surface-tint": "#edc062",
+          "primary-fixed-dim": "#edc062",
+          "surface-variant": "#193b27",
+          "outline-variant": "#4e4637",
+          "secondary-fixed-dim": "#97d4aa",
+          "on-background": "#c5eccf",
+          "outline": "#9a8f7e",
+          "on-tertiary-fixed-variant": "#93000f",
+          "surface-container-highest": "#193b27",
+          "surface-bright": "#1e402b",
+          "on-tertiary-fixed": "#410003",
+          "on-primary-fixed": "#261900",
+          "surface": "#00180a",
+          "on-tertiary": "#680007",
+          "primary-fixed": "#ffdea1",
+          "error-container": "#93000a",
+          "tertiary-fixed": "#ffdad6",
+          "on-error": "#690005",
+          "background": "#00180a",
+          "error": "#ffb4ab",
+          "surface-container-lowest": "#001207",
+          "on-surface": "#c5eccf",
+          "tertiary-container": "#ffa9a1",
+          "surface-container-high": "#0d301d",
+          "on-surface-variant": "#d1c5b2",
+          "on-secondary-container": "#89c69d",
+          "primary": "#ffd682",
+          "surface-container-low": "#002110",
+          "on-primary": "#402d00",
+          "inverse-primary": "#7a5900",
+          "surface-dim": "#00180a",
+          "on-error-container": "#ffdad6",
+          "tertiary": "#ffd0cb",
+          "secondary": "#97d4aa",
+          "on-primary-container": "#654900",
+          "on-secondary": "#00391f",
+          "on-secondary-fixed-variant": "#135131",
+          "secondary-container": "#165333",
+          "primary-container": "#e5b95c",
+          "inverse-surface": "#c5eccf",
+          "on-tertiary-container": "#a00212",
+          "inverse-on-surface": "#143723",
+          "tertiary-fixed-dim": "#ffb4ac",
+          "surface-container": "#012513",
+          "on-secondary-fixed": "#002110"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-sm": "0.5rem",
+          "space-xl": "2.5rem",
+          "gutter-mobile": "0.75rem",
+          "margin-mobile": "1rem",
+          "gutter": "1.5rem",
+          "margin": "2rem",
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem",
+          "space-md": "1rem"
+        },
+        "fontFamily": {
+          "body-sm": ["Noto Sans"],
+          "body-md": ["Noto Sans"],
+          "label-lg": ["Noto Serif"],
+          "headline-xl-mobile": ["Noto Serif"],
+          "headline-lg-mobile": ["Noto Serif"],
+          "headline-xl": ["Noto Serif"],
+          "label-sm": ["Noto Serif"],
+          "headline-sm": ["Noto Serif"],
+          "headline-lg": ["Noto Serif"],
+          "label-md": ["Noto Serif"],
+          "headline-md": ["Noto Serif"],
+          "body-lg": ["Noto Sans"]
+        },
+        "fontSize": {
+          "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "headline-xl-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+          "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+          "headline-sm": ["18px", {"lineHeight": "26px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+          "headline-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  };</script></head><body class="bg-background font-body-md text-on-surface min-h-screen relative overflow-x-hidden selection:bg-primary selection:text-on-primary"><div class="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface-bright/40 via-surface/80 to-surface-container-lowest"></div><main class="relative z-10 w-full min-h-screen flex items-center justify-center p-space-md lg:p-margin"><div class="flex flex-col w-full relative min-h-[920px] items-center justify-center select-none overflow-hidden font-body-md text-on-surface">
+<!-- ==================== BACKGROUND CASINO STAGE ==================== -->
+<div class="absolute inset-0 w-full h-full pointer-events-none flex items-center justify-center bg-surface-container-lowest">
+<!-- Felt Arena Oval Outer Rail -->
+<div class="relative w-full max-w-6xl aspect-[16/10] rounded-[180px] bg-surface-container-low shadow-[0_30px_90px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col items-center justify-between p-8">
+<!-- Brass Perimeter Inlay Arc -->
+<div class="absolute inset-4 rounded-[160px] opacity-40 bg-[radial-gradient(circle_at_50%_40%,_var(--tw-gradient-stops))] from-surface-bright/50 via-surface-variant/40 to-surface-container-lowest pointer-events-none"></div>
+<!-- Top Rail: Deck, Logo & Management Menu -->
+<div class="w-full flex items-center justify-between px-10 pt-4 z-10">
+<!-- Shoe / Deck Counter -->
+<div class="flex items-center gap-space-sm bg-surface-container-high/70 px-4 py-2 rounded-full shadow-inner">
+<span class="material-symbols-outlined text-primary text-[20px]">style</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">牌靴剩餘</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold tracking-wider">48 張牌</span>
+</div>
+</div>
+<!-- Table Arch Text Watermark -->
+<div class="flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm tracking-[0.25em] text-primary/80 uppercase">Blackjack 21</span>
+<span class="font-label-sm text-label-sm tracking-[0.18em] text-outline mt-1">BLACKJACK PAYS 3 TO 2 • DEALER MUST STAND ON 17</span>
+</div>
+<!-- Action HUD -->
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-high/80 text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>設定</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-high/80 text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">account_circle</span>
+<span>帳戶資料</span>
+</button>
+</div>
+</div>
+<!-- Dealer Playfield -->
+<div class="flex flex-col items-center mt-2 z-10">
+<div class="flex items-center gap-2 mb-3 bg-surface-container/70 px-3 py-1 rounded-full">
+<span class="font-label-md text-label-md text-primary tracking-widest font-semibold">莊家 (DEALER)</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary/40"></span>
+<span class="font-label-md text-label-md text-secondary">點數: 10+?</span>
+</div>
+<!-- Dealer Cards -->
+<div class="flex items-center justify-center -space-x-5">
+<!-- Card 1: Face Up 10 of Spades -->
+<div class="w-24 h-36 rounded-lg bg-[#FCFAF2] text-[#1C1E21] p-2.5 flex flex-col justify-between shadow-[0_12px_24px_rgba(0,0,0,0.5)] transform -rotate-2">
+<div class="flex flex-col items-start leading-none">
+<span class="font-headline-sm text-headline-sm font-bold">10</span>
+<span class="text-xs">♠</span>
+</div>
+<div class="self-center text-3xl font-bold">♠</div>
+<div class="flex flex-col items-end leading-none rotate-180">
+<span class="font-headline-sm text-headline-sm font-bold">10</span>
+<span class="text-xs">♠</span>
+</div>
+</div>
+<!-- Card 2: Face Down Velvet Back -->
+<div class="w-24 h-36 rounded-lg bg-surface-container p-1 shadow-[0_12px_24px_rgba(0,0,0,0.5)] transform rotate-3 flex items-center justify-center">
+<div class="w-full h-full rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary/40 text-4xl">diamond</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Player Betting Area & Active Hand -->
+<div class="w-full max-w-xl flex flex-col items-center mb-6 z-10">
+<div class="w-full flex items-center justify-center gap-6 mb-3">
+<!-- Card 1: Ace of Hearts -->
+<div class="w-24 h-36 rounded-lg bg-[#FCFAF2] text-on-tertiary-container p-2.5 flex flex-col justify-between shadow-[0_12px_24px_rgba(0,0,0,0.5)] transform -rotate-3">
+<div class="flex flex-col items-start leading-none">
+<span class="font-headline-sm text-headline-sm font-bold">A</span>
+<span class="text-xs">♥</span>
+</div>
+<div class="self-center text-3xl font-bold">♥</div>
+<div class="flex flex-col items-end leading-none rotate-180">
+<span class="font-headline-sm text-headline-sm font-bold">A</span>
+<span class="text-xs">♥</span>
+</div>
+</div>
+<!-- Card 2: Jack of Diamonds -->
+<div class="w-24 h-36 rounded-lg bg-[#FCFAF2] text-on-tertiary-container p-2.5 flex flex-col justify-between shadow-[0_12px_24px_rgba(0,0,0,0.5)] transform rotate-2">
+<div class="flex flex-col items-start leading-none">
+<span class="font-headline-sm text-headline-sm font-bold">J</span>
+<span class="text-xs">♦</span>
+</div>
+<div class="self-center text-3xl font-bold">♦</div>
+<div class="flex flex-col items-end leading-none rotate-180">
+<span class="font-headline-sm text-headline-sm font-bold">J</span>
+<span class="text-xs">♦</span>
+</div>
+</div>
+</div>
+<!-- Player Point Ribbon -->
+<div class="bg-surface-container-high/90 px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">閒家點數</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">21 (BLACKJACK)</span>
+</div>
+</div>
+<!-- Table Bottom Control Ledger -->
+<div class="w-full flex items-center justify-between px-10 pb-4 z-10">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-high/80 text-outline hover:text-on-surface text-body-sm font-body-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>離開遊戲</span>
+</button>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2.5 bg-surface-container-high/80 px-4 py-2 rounded-xl">
+<span class="font-label-sm text-label-sm text-outline tracking-wider uppercase">本局下注</span>
+<span class="font-label-lg text-label-lg text-primary font-bold">500</span>
+</div>
+<div class="flex items-center gap-2.5 bg-surface-container-high/80 px-4 py-2 rounded-xl">
+<span class="font-label-sm text-label-sm text-outline tracking-wider uppercase">可用籌碼</span>
+<span class="font-label-lg text-label-lg text-secondary-fixed font-bold">1,000</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== BLUR OVERLAY MASK ==================== -->
+<div class="fixed inset-0 z-20 backdrop-blur-[6px] bg-[#01140a]/80 transition-all duration-300"></div>
+<!-- ==================== CENTERED EXIT CONFIRMATION MODAL ==================== -->
+<div class="relative z-30 w-[400px] max-w-[92vw] rounded-[20px] bg-gradient-to-b from-[#072214] via-[#041a0f] to-[#02140a] p-[1px] shadow-[0_24px_64px_rgba(0,0,0,0.85)] animate-in fade-in zoom-in-95 duration-200">
+<!-- Outer Inlay Gold Highlight -->
+<div class="w-full h-full rounded-[19px] bg-surface-container-low/95 p-7 flex flex-col items-center relative overflow-hidden shadow-inner">
+<!-- Subtle Ambient Felt Flare inside modal -->
+<div class="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Close Button (Top-Right) -->
+<button aria-label="關閉對話框" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-outline hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" id="btn-modal-close-icon" onclick="this.closest('.relative.z-30').classList.toggle('scale-95'); setTimeout(() =&gt; this.closest('.relative.z-30').classList.toggle('scale-95'), 150);" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<!-- 1. Refined Exit Icon Badge -->
+<div class="w-14 h-14 rounded-full bg-surface-container-high shadow-lg flex items-center justify-center mb-4 relative">
+<div class="w-11 h-11 rounded-full bg-gradient-to-b from-surface-variant to-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">logout</span>
+</div>
+</div>
+<!-- 2. Typography Hierarchy -->
+<div class="flex flex-col items-center text-center">
+<!-- English Accent Subtitle -->
+<span class="font-label-sm text-label-sm text-primary-container tracking-[0.25em] uppercase font-semibold mb-1">
+          CONFIRM EXIT
+        </span>
+<!-- Primary Traditional Chinese Title -->
+<h2 class="font-headline-md text-headline-md font-semibold text-primary tracking-wide text-balance">
+          確定離開遊戲？
+        </h2>
+<!-- Secondary Description -->
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-[280px] leading-relaxed">
+          你即將結束本次牌局並返回大廳首頁
+        </p>
+</div>
+<!-- 3. Minimal Informational Notice Ribbon -->
+<div class="w-full my-5 py-2.5 px-3.5 rounded-lg bg-surface-container-high/60 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">info</span>
+<span class="font-body-sm text-body-sm text-secondary-fixed-dim">
+          當前牌局未結算之下注將退回籌碼
+        </span>
+</div>
+<!-- 4. Action Controls (50/50 Dual Equal-Width Buttons) -->
+<div class="w-full grid grid-cols-2 gap-3 mt-1">
+<!-- Left Button: Cancel -->
+<button class="w-full py-3 rounded-xl bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md tracking-wider transition-all duration-200 active:scale-[0.98] shadow-sm flex items-center justify-center" id="btn-cancel" onclick="console.log('Action: 取消離開');" type="button">
+          取消
+        </button>
+<!-- Right Button: Confirm Exit -->
+<button class="w-full py-3 rounded-xl bg-gradient-to-b from-primary via-primary-container to-primary text-on-primary font-label-md text-label-md font-bold tracking-wider transition-all duration-200 hover:brightness-105 active:scale-[0.98] shadow-[0_6px_16px_rgba(229,185,92,0.25)] flex items-center justify-center" id="btn-confirm-exit" onclick="console.log('Action: 確認離開並結算');" type="button">
+          確認離開
+        </button>
+</div>
+<!-- Footer Micro Security Text -->
+<div class="mt-4 flex items-center gap-1.5 opacity-60">
+<span class="material-symbols-outlined text-[13px] text-outline">verified_user</span>
+<span class="font-label-sm text-label-sm text-outline">MONTE CARLO SALON PRIVÉ • SECURE SESSION</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interactions for modal actions
+  document.getElementById('btn-cancel')?.addEventListener('click', () => {
+    const modal = document.querySelector('.relative.z-30');
+    if (modal) {
+      modal.style.opacity = '0.4';
+      modal.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        modal.style.opacity = '1';
+        modal.style.transform = 'scale(1)';
+      }, 300);
+    }
+  });
+
+  document.getElementById('btn-confirm-exit')?.addEventListener('click', (e) => {
+    const target = e.currentTarget;
+    target.classList.add('opacity-75');
+    target.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px] mr-1.5">progress_activity</span>正在離開...`;
+    setTimeout(() => {
+      target.classList.remove('opacity-75');
+      target.innerHTML = `確認離開`;
+    }, 1200);
+  });
+</script></main></body></html>

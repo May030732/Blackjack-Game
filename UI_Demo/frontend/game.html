@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00180a">
+  <title>遊戲牌桌｜BLACKJACK 21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=Noto+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="css/tailwind.config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body class="min-h-screen bg-surface-container-lowest p-2 text-on-surface sm:p-4">
+  <main class="game-table brass-frame relative mx-auto flex min-h-[calc(100vh-1rem)] w-full max-w-[1720px] flex-col justify-between overflow-hidden rounded-[28px] p-4 sm:min-h-[calc(100vh-2rem)] sm:p-7 md:rounded-[40px] md:p-10">
+    <div class="felt-texture pointer-events-none absolute inset-0 opacity-[0.12]"></div>
+    <div class="felt-vignette pointer-events-none absolute inset-0"></div>
+    <header class="relative z-10 flex flex-wrap items-center justify-between gap-4">
+      <a class="flex items-center gap-2 font-headline-sm text-primary" href="index.html"><span class="material-symbols-outlined">playing_cards</span>BLACKJACK 21</a>
+      <div class="flex flex-wrap gap-2">
+        <button class="surface-button rounded-xl px-3 py-2 font-label-md" type="button" data-modal-open="settings-modal"><span class="material-symbols-outlined mr-1 align-middle text-primary">settings</span>設定</button>
+        <button class="surface-button rounded-xl px-3 py-2 font-label-md" type="button" data-modal-open="account-modal"><span class="material-symbols-outlined mr-1 align-middle text-primary">account_circle</span>帳戶資料</button>
+        <button class="surface-button rounded-xl px-3 py-2 font-label-md" type="button" data-modal-open="exit-modal"><span class="material-symbols-outlined mr-1 align-middle">logout</span>離開遊戲</button>
+      </div>
+    </header>
+
+    <section class="game-status-card relative z-10 mx-auto my-6 w-full max-w-2xl rounded-2xl border border-primary/20 p-5 text-center sm:p-7" aria-live="polite">
+      <p class="font-label-sm tracking-[0.2em] text-secondary">目前牌局狀態</p>
+      <h1 class="mt-2 font-headline-md text-primary" data-current-phase>等待牌局資料</h1>
+      <p class="mt-2 text-body-md text-on-surface-variant">牌面、點數、可用操作及結果將由遊戲服務提供。</p>
+      <div class="mt-4 flex justify-center">
+        <div class="card-back flex h-20 w-14 items-center justify-center rounded-lg border border-primary/40 shadow-xl" aria-hidden="true">
+          <span class="font-headline-sm text-primary">21</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="status-message relative z-10 mx-auto mb-5 w-full max-w-xl rounded-lg border border-primary/30 bg-surface-container-lowest/80 px-4 py-3 text-center text-body-md text-on-surface-variant" role="status" aria-live="polite" data-page-status>
+      <span class="material-symbols-outlined mr-2 align-middle text-primary">info</span>
+      <span data-status-message>正在取得牌局狀態…</span>
+    </div>
+
+    <section class="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 py-4">
+      <div class="text-center">
+        <p class="font-label-md tracking-widest text-primary">莊家</p>
+        <div class="mt-3 flex min-h-36 items-center justify-center gap-3">
+          <div class="playing-card flex h-36 w-24 items-center justify-center rounded-xl border border-dashed border-outline/40 bg-surface-container-high/50 text-outline" aria-label="等待伺服器提供莊家手牌">
+            <span class="material-symbols-outlined text-3xl">style</span>
+          </div>
+          <div class="card-back flex h-36 w-24 items-center justify-center rounded-xl border border-primary/30 text-primary/60" aria-hidden="true">
+            <span class="material-symbols-outlined text-3xl">lock</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-status-card w-full rounded-xl p-4 text-center">
+        <span class="font-label-sm tracking-widest text-primary" data-game-stage="ready">等待牌局資料</span>
+        <span class="font-label-sm tracking-widest text-primary" data-game-stage="betting" hidden>等待下注</span>
+        <span class="font-label-sm tracking-widest text-primary" data-game-stage="dealing" hidden>正在發牌</span>
+        <span class="font-label-sm tracking-widest text-primary" data-game-stage="player-turn" hidden>輪到玩家操作</span>
+        <span class="font-label-sm tracking-widest text-primary" data-game-stage="dealer-turn" hidden>莊家回合</span>
+        <span class="font-label-sm tracking-widest text-primary" data-game-stage="settled" hidden>本局已結算</span>
+        <span class="font-label-sm tracking-widest text-primary" data-game-stage="game-over" hidden>本次遊戲結束</span>
+        <div class="mt-4 grid grid-cols-3 gap-2 sm:gap-4">
+          <button class="game-action gold-button rounded-lg px-2 py-3 font-headline-sm disabled:cursor-not-allowed" type="button" data-game-action="hit" disabled>要牌 <span class="block font-label-sm">HIT</span></button>
+          <button class="game-action surface-button rounded-lg px-2 py-3 font-headline-sm" type="button" data-game-action="stand" disabled>停牌 <span class="block font-label-sm">STAND</span></button>
+          <button class="game-action surface-button rounded-lg px-2 py-3 font-headline-sm" type="button" data-game-action="double" disabled>加注 <span class="block font-label-sm">DOUBLE</span></button>
+        </div>
+      </div>
+      <div class="text-center">
+        <p class="font-label-md tracking-widest text-primary">閒家</p>
+        <div class="mt-3 flex min-h-36 items-center justify-center gap-3">
+          <div class="playing-card flex h-36 w-24 items-center justify-center rounded-xl border border-dashed border-outline/40 bg-surface-container-high/50 text-outline" aria-label="等待伺服器提供玩家手牌">
+            <span class="material-symbols-outlined text-3xl">style</span>
+          </div>
+          <div class="playing-card flex h-36 w-24 items-center justify-center rounded-xl border border-dashed border-outline/40 bg-surface-container-high/50 text-outline" aria-hidden="true">
+            <span class="material-symbols-outlined text-3xl">add</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="relative z-10 flex flex-wrap items-center justify-between gap-3 border-t border-primary/20 pt-4 text-body-sm text-on-surface-variant">
+      <span>牌組狀態：<span class="text-outline">由伺服器提供</span></span>
+      <span>本局下注：<span class="text-outline">—</span></span>
+      <span>現有籌碼：<span class="text-outline">—</span></span>
+      <button class="surface-button rounded-lg px-4 py-2 font-label-md" type="button" data-next-round>重新取得狀態</button>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop fixed inset-0 z-40 flex items-center justify-center p-4" id="settings-modal" data-modal hidden aria-hidden="true">
+    <section class="game-status-card relative w-full max-w-md rounded-2xl border border-primary/30 p-6" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <button class="absolute right-4 top-4 text-outline hover:text-primary" type="button" aria-label="關閉設定" data-modal-close><span class="material-symbols-outlined">close</span></button>
+      <h2 class="mb-5 text-center font-headline-md text-primary" id="settings-title">遊戲設定</h2>
+      <label class="flex items-center justify-between border-b border-primary/10 py-3 font-body-md">桌面音效<input type="checkbox" class="accent-yellow-500"></label>
+      <label class="flex items-center justify-between border-b border-primary/10 py-3 font-body-md">動畫效果<input type="checkbox" class="accent-yellow-500" checked></label>
+      <p class="mt-4 text-body-sm text-on-surface-variant">發牌規則及洗牌設定由遊戲服務管理。</p>
+      <button class="gold-button mt-5 w-full rounded-lg py-3 font-label-md" type="button" data-modal-close>完成</button>
+    </section>
+  </div>
+  <div class="modal-backdrop fixed inset-0 z-40 flex items-center justify-center p-4" id="account-modal" data-modal hidden aria-hidden="true">
+    <section class="game-status-card relative w-full max-w-md rounded-2xl border border-primary/30 p-6 text-center" role="dialog" aria-modal="true" aria-labelledby="account-title">
+      <button class="absolute right-4 top-4 text-outline hover:text-primary" type="button" aria-label="關閉帳戶資料" data-modal-close><span class="material-symbols-outlined">close</span></button>
+      <span class="material-symbols-outlined text-4xl text-primary">person</span>
+      <h2 class="mt-2 font-headline-md text-primary" id="account-title">帳戶資料</h2>
+      <p class="mt-3 text-body-md text-on-surface-variant">帳戶名稱與統計資料將由登入狀態及後端服務提供。</p>
+      <button class="surface-button mt-5 w-full rounded-lg py-3 font-label-md" type="button" data-modal-close>關閉</button>
+    </section>
+  </div>
+  <div class="modal-backdrop fixed inset-0 z-40 flex items-center justify-center p-4" id="exit-modal" data-modal hidden aria-hidden="true">
+    <section class="game-status-card relative w-full max-w-sm rounded-2xl border border-primary/30 p-6 text-center" role="dialog" aria-modal="true" aria-labelledby="exit-title">
+      <button class="absolute right-4 top-4 text-outline hover:text-primary" type="button" aria-label="關閉確認" data-modal-close><span class="material-symbols-outlined">close</span></button>
+      <h2 class="font-headline-md text-primary" id="exit-title">離開遊戲？</h2>
+      <p class="mt-3 text-body-md text-on-surface-variant">離開與未結算下注的處理方式須由遊戲服務確認。</p>
+      <div class="mt-5 grid grid-cols-2 gap-3">
+        <button class="surface-button rounded-lg py-3 font-label-md" type="button" data-modal-close>返回牌桌</button>
+        <a class="gold-button rounded-lg py-3 font-label-md" href="index.html">回到大廳</a>
+      </div>
+    </section>
+  </div>
+  <div class="toast fixed bottom-8 left-1/2 z-50 flex items-center gap-3 rounded-lg bg-surface-container-high px-6 py-3 shadow-2xl" role="status" aria-live="polite" data-toast>
+    <span class="material-symbols-outlined text-primary" data-toast-icon>info</span><span data-toast-message></span>
+  </div>
+  <script type="module" src="js/pages/game.js"></script>
+</body>
+</html>

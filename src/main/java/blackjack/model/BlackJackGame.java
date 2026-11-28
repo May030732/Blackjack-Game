@@ -22,6 +22,10 @@ public class BlackJackGame {
         result = null;
     }
 
+    public int getCurrentBet() {
+        return currentBet;
+    }
+
     public boolean startRound(int bet) {
 
     if (state != GameState.READY &&

@@ -1,0 +1,57 @@
+.toast {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 1rem);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  background: rgba(0, 18, 7, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.playing-card {
+  background: #fcfaf2;
+  color: #1c1e21;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55), 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.playing-card.is-red {
+  color: #c92a2a;
+}
+
+.gold-button {
+  color: #261900;
+  background: linear-gradient(180deg, #f8dfa0 0%, #e5b95c 55%, #a67c2e 100%);
+}
+
+.gold-button:hover {
+  filter: brightness(1.06);
+}
+
+.surface-button {
+  color: #c5eccf;
+  background: rgba(13, 48, 29, 0.9);
+  border: 1px solid rgba(229, 185, 92, 0.25);
+}
+
+.surface-button:hover {
+  background: #193b27;
+}
+
+.status-message[hidden] {
+  display: none;
+}
+
+[data-game-stage][hidden] {
+  display: none;
+}
